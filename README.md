@@ -31,8 +31,6 @@ Actualmente, los temas disponibles son:
 
 This skin has been tested with MediaWiki versions `1.39.17`, `1.43.9`, `1.45.4`, and `1.47.0-alpha`.
 
-The skin is expected to work with MediaWiki 1.36–1.38, but these versions are not currently tested.
-
 ## Version history
 
 Version 1.7 - Dec 9, 2020
@@ -43,3 +41,7 @@ Version 1.7.4 - Nov 25, 2026
 - Migrated ´extension.json´ from manifest version 1 to manifest version 2.
 - Add namespace
 - Add file ´Compat.php´
+
+Version 1.7.5 - Nov 25, 2026
+- Add backward compatibility to REL1_39
+- Update ´i18n´
