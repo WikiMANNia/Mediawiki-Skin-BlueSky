@@ -1,7 +1,23 @@
 <?php
 
+namespace MediaWiki\Skin\BlueSky;
+
+use MediaWiki\Html\Html;
+use MediaWiki\Language\Language;
+use MediaWiki\Languages\LanguageNameUtils;
+use MediaWiki\Linker\Linker;
+use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\Sanitizer;
+use MediaWiki\Permissions\PermissionManager;
+use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Skin\Skin;
+use MediaWiki\Skin\BaseTemplate;
+use MediaWiki\SpecialPage\SpecialPage;
+use MediaWiki\Title\Title;
+use MediaWiki\User\TalkPageNotificationManager;
 
 /**
  * BaseTemplate class for the BlueSky skin
@@ -22,11 +38,19 @@ class BlueSkyTemplate extends BaseTemplate {
 	 */
 	protected $isMainPage;
 
+	private Language $contentLanguage;
+	private LinkRenderer $linkRenderer;
+
 	/**
 	 * Outputs the entire contents of the page
 	 */
 	public function execute() {
+		/** @var $skin SkinBlueSky */
 		$skin = $this->getSkin();
+
+		$this->contentLanguage = MediaWikiServices::getInstance()->getContentLanguage();
+		$this->linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+
 		$title = $skin->getTitle();
 		$request = $skin->getRequest();
 		$action = $request->getVal( 'action', 'view' );
@@ -120,7 +144,7 @@ class BlueSkyTemplate extends BaseTemplate {
 			$html .= Html::closeElement( 'div' );
 
 			// ToC
-			$toc = $this->getToc();
+			$toc = $this->getToC();
 			if ( $toc != '' ) {
 				$html .= Html::rawElement(
 					'div',
@@ -226,7 +250,7 @@ class BlueSkyTemplate extends BaseTemplate {
 
 		// Add login link if not logged in
 		if ( !$user->isRegistered() ) {
-			$link = MediaWikiServices::getInstance()->getLinkRenderer()->makeLink(
+			$link = $this->linkRenderer->makeLink(
 				SpecialPage::getTitleFor( 'Userlogin' ),
 				$this->getMsg( 'login' )->text()
 			);
@@ -239,7 +263,7 @@ class BlueSkyTemplate extends BaseTemplate {
 		// Footer info
 		$defaultFooter = $this->getFooterLinks();
 
-		$languages = $this->getInterLanguageLinks();
+		$languages = $this->getInterlanguageLinks();
 		$catLinks = $skin->getCategoryLinks();
 		// normalise into string
 		$catLinks = $catLinks ? $catLinks : '';
@@ -768,13 +792,13 @@ class BlueSkyTemplate extends BaseTemplate {
 			if ( isset( $text[1] ) ) {
 				// has both target and display text
 				$target = $this->getMsgOrDump( $text[0], false );
-				if ( preg_match( '/^(?i:' . wfUrlProtocols() . ')/', $target ) ) {
+				if ( preg_match( '/^(?i:' . $this->validProtocols . ')/', $target ) ) {
 					$html = Linker::makeExternalLink(
 						$target,
 						$this->getMsgOrDump( $text[1], false )
 					);
 				} else {
-					$html = MediaWikiServices::getInstance()->getLinkRenderer()->makeLink(
+					$html = $this->linkRenderer->makeLink(
 						Title::newFromText( $target ),
 						$this->getMsgOrDump( $text[1], false )
 					);
@@ -894,7 +918,7 @@ class BlueSkyTemplate extends BaseTemplate {
 				$this->notifications_count = $notifUser->getNotificationCount();
 
 				if ( $this->notifications_count > $maxNotesShown ) {
-					$link = MediaWikiServices::getInstance()->getLinkRenderer()->makeLink(
+					$link = $this->linkRenderer->makeLink(
 						$notificationsPage,
 						new HtmlArmor(
 							$this->msg( 'parentheses' )->rawParams(
@@ -910,7 +934,7 @@ class BlueSkyTemplate extends BaseTemplate {
 				}
 
 				// add view all link
-				$viewAllLink = MediaWikiServices::getInstance()->getLinkRenderer()->makeLink(
+				$viewAllLink = $this->linkRenderer->makeLink(
 					$notificationsPage,
 					$this->msg( 'more-notifications-link' )->plain()
 				);
@@ -969,7 +993,7 @@ class BlueSkyTemplate extends BaseTemplate {
 			$talkCount = $this->getCount( 'user_newtalk' );
 			$msg = Html::rawElement( 'div', [ 'class' => 'note_row' ],
 				Html::element( 'div', [ 'class' => 'note_icon_talk' ], '' ) .
-				MediaWikiServices::getInstance()->getLinkRenderer()->makeLink(
+				$this->linkRenderer->makeLink(
 					$user->getTalkPage(),
 					new HtmlArmor(
 						$this->getMsg( 'bluesky-notifications-new-talk' )->numParams( $talkCount )->parse()
@@ -1006,7 +1030,7 @@ class BlueSkyTemplate extends BaseTemplate {
 			$id = $user->getName();
 		}
 
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = self::getReadingConnect();
 		$count = (int)$dbr->selectField(
 			$table,
 			'COUNT(' . $field . ') AS count',
@@ -1166,24 +1190,21 @@ class BlueSkyTemplate extends BaseTemplate {
 	 * @return string
 	 */
 	private function getInterlanguageLinks() {
-		global $wgHideInterlanguageLinks;
-
 		$skin = $this->getSkin();
 
 		$languages = [];
-		if ( !$wgHideInterlanguageLinks ) {
-			$services = MediaWikiServices::getInstance();
-			$contLang = $services->getContentLanguage();
+		if ( !$this->config->get( MainConfigNames::HideInterlanguageLinks ) ) {
 			foreach ( $skin->getOutput()->getLanguageLinks() as $blob ) {
 				$tmp = explode( ':', $blob, 2 );
 				$class = 'interwiki-' . $tmp[0];
 				$code = $tmp[0];
 				$iwTitleName = $tmp[1];
 				$iwTitle = Title::newFromText( $blob );
-				$inLanguage = $contLang->getCode();
+				$inLanguage = $this->contentLanguage->getCode();
 				$interwiki = $iwTitle->getInterwiki();
-				if ( Language::fetchLanguageName( $interwiki, $inLanguage ) != '' ) {
-					$language = Language::fetchLanguageName( $interwiki, $inLanguage );
+				$languageName = Language::fetchLanguageName( $interwiki, $inLanguage );
+				if ( $languageName !== '' ) {
+					$language = $languageName;
 				} else {
 					$language = $blob;
 				}
@@ -1263,17 +1284,16 @@ class BlueSkyTemplate extends BaseTemplate {
 		// Get list from output if in view/edit/preview; otherwise get list from title
 		if ( in_array( $skin->getRequest()->getVal( 'action' ), [ 'submit', 'view', 'edit' ] ) ) {
 			$allCats = [];
-			$allCats2 = $skin->getOutput()->GetCategories();
+			$allCats2 = $skin->getOutput()->getCategories();
 			foreach ( $allCats2 as $displayName ) {
 				$safeTitle = Title::makeTitleSafe( NS_CATEGORY, $displayName );
 				$allCats[] = $safeTitle->getDBkey();
 			}
 		} else {
-			$contLang = MediaWikiServices::getInstance()->getContentLanguage();
 			$allCats = array_keys( $title->getParentCategories() );
 			// Horrible backwards parsing
 			foreach ( $allCats as $i => $catName ) {
-				$len = strlen( $contLang->getNsText( NS_CATEGORY ) . ':' );
+				$len = strlen( $this->contentLanguage->getNsText( NS_CATEGORY ) . ':' );
 				$allCats[$i] = substr( $catName, $len );
 			}
 		}
@@ -1319,7 +1339,7 @@ class BlueSkyTemplate extends BaseTemplate {
 
 			// SQL provided by your friendly neighbourhood Skizzers
 			// I honestly don't remember what this was for, but it was apparently needed to get the actually relevant ones
-			$dbr = wfGetDB( DB_REPLICA );
+			$dbr = self::getReadingConnect();
 			$res = $dbr->select(
 				[ 'page', 'page_props', 'category' ],
 				[ 'cat_title' ],
@@ -1358,7 +1378,7 @@ class BlueSkyTemplate extends BaseTemplate {
 					if ( !$titleSafe ) {
 						continue;
 					}
-					$category = MediaWikiServices::getInstance()->getLinkRenderer()->makeLink(
+					$category = $this->linkRenderer->makeLink(
 						$titleSafe,
 						$titleSafe->getText()
 					);
@@ -1395,7 +1415,7 @@ class BlueSkyTemplate extends BaseTemplate {
 		$skin = $this->getSkin();
 		$skTitle = $skin->getTitle();
 		$namespace = $skTitle->getNamespace();
-		$page = MediaWikiServices::getInstance()->getLinkRenderer()->makeLink(
+		$page = $this->linkRenderer->makeLink(
 			$skTitle,
 			$skTitle->getSubpageText()
 		);
@@ -1411,23 +1431,22 @@ class BlueSkyTemplate extends BaseTemplate {
 			/* Get list from output if in preview; otherwise get list from title */
 			if ( in_array( $skin->getRequest()->getVal( 'action' ), [ 'submit', 'view', 'edit' ] ) ) {
 				$allCats = [];
-				$allCats2 = $skin->getOutput()->GetCategories();
+				$allCats2 = $skin->getOutput()->getCategories();
 				foreach ( $allCats2 as $displayName ) {
 					$title = Title::makeTitleSafe( NS_CATEGORY, $displayName );
 					$allCats[] = $title->getDBkey();
 				}
 			} else {
 				$allCats = array_keys( $skTitle->getParentCategories() );
-				$contLang = MediaWikiServices::getInstance()->getContentLanguage();
 
 				foreach ( $allCats as $i => $catName ) {
-					$len = strlen( $contLang->getNsText( NS_CATEGORY ) . ':' );
+					$len = strlen( $this->contentLanguage->getNsText( NS_CATEGORY ) . ':' );
 					$allCats[$i] = substr( $catName, $len );
 				}
 			}
 
 			if ( count( $allCats ) > 0 ) {
-				$dbr = wfGetDB( DB_REPLICA );
+				$dbr = self::getReadingConnect();
 				$res = $dbr->select(
 					[ 'page', 'page_props', 'category' ],
 					[ 'cat_title' ],
@@ -1466,7 +1485,7 @@ class BlueSkyTemplate extends BaseTemplate {
 						if ( !$title ) {
 							continue;
 						}
-						$category = MediaWikiServices::getInstance()->getLinkRenderer()->makeLink(
+						$category = $this->linkRenderer->makeLink(
 							$title,
 							$title->getText()
 						);
@@ -1568,5 +1587,15 @@ class BlueSkyTemplate extends BaseTemplate {
 		}
 
 		return $tocHTML;
+	}
+
+	private static function getReadingConnect() {
+		if ( method_exists( '\MediaWiki\MediaWikiServices', 'getConnectionProvider' ) ) {
+			$cp = MediaWikiServices::getInstance()->getConnectionProvider();
+			return $cp->getReplicaDatabase();
+		} else {
+			$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
+			return $lb->getMaintenanceConnectionRef( DB_REPLICA );
+		}
 	}
 }
