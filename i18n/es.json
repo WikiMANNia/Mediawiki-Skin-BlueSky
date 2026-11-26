@@ -22,6 +22,7 @@
 	"bluesky-page-edited-user": "Última edición de la página {{int:ago|$1}} por $2",
 	"bluesky-toc-sections": "Secciones",
 	"bluesky-home": "Inicio",
+	"bluesky-menu": "Menú",
 	"bluesky-breadcrumbs-nsspecial": "[[Special:SpecialPages|Páginas especiales]]",
 	"bluesky-breadcrumbs-nsproject": "[{{fullurl:Special:PrefixIndex|namespace=4}} Páginas de proyectos]",
 	"bluesky-breadcrumbs-nsproject-talk": "[{{fullurl:Special:PrefixIndex|namespace=5}} Páginas de discusión de proyectos]",
@@ -32,5 +33,9 @@
 	"bluesky-article-info": "Información del artículo",
 	"bluesky-page-info": "Información de la página",
 	"bluesky-footer-tools": "Herramientas de página adicionales",
-	"bluesky-menu": "Menú"
+	"theme-name-bluesky-blue": "Azul",
+	"theme-name-bluesky-green": "Verde",
+	"theme-name-bluesky-grey": "Gris",
+	"theme-name-bluesky-red": "Rojo",
+	"theme-name-bluesky-white": "Blanco"
 }
