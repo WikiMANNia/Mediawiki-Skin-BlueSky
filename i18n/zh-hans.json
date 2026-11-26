@@ -1,11 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"LittlePaw365",
 			"Liuxinyu970226"
 		]
 	},
 	"bluesky-desc": "最初基于wikiHow皮肤的当前版本（2013年下旬）的皮肤，并带有诸如移动支持、更佳的外部扩展互用性及主题的新功能。",
-	"bluesky-editthis": "编辑本页",
+	"bluesky-editthis": "编辑该页",
 	"bluesky-viewsource": "查看该页面的源代码",
 	"bluesky-navbar-edit": "编辑",
 	"bluesky-personaltools": "个人资料",
@@ -19,7 +20,6 @@
 	"bluesky-admin": "管理员",
 	"bluesky-page-edited": "页面上次编辑于{{int:ago|$1}}",
 	"bluesky-page-edited-user": "页面上次由$2编辑于{{int:ago|$1}}",
-	"duration-months": "$1个{{PLURAL:$1|月}}",
 	"bluesky-toc-sections": "章节",
 	"bluesky-home": "首页",
 	"bluesky-breadcrumbs-nsspecial": "[[Special:SpecialPages|特殊页面]]",

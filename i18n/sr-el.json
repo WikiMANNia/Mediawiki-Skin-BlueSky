@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Zoranzoki21",
-			"Kizule"
+			"Kizule",
+			"Zoranzoki21"
 		]
 	},
 	"bluesky-desc": "Tema originalno zasnovana na trenutnoj verziji teme wikiHow-a iz kasne 2013, sa novim funkcijama poput podrške za mobilne uređaje, boljom međuoperativnošću i temama.",
@@ -20,7 +20,6 @@
 	"bluesky-admin": "Administrator",
 	"bluesky-page-edited": "Poslednja izmena na stranici je izvršena {{int:ago|$1}}",
 	"bluesky-page-edited-user": "Poslednju izmenu na stranici je izvršio $2 {{int:ago|$1}}",
-	"duration-months": "$1 {{PLURAL:$1|mesec|meseca|meseci}}",
 	"bluesky-toc-sections": "Odeljci",
 	"bluesky-breadcrumb-pointer": "»",
 	"bluesky-home": "Početna",

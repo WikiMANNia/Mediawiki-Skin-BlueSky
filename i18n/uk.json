@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Piramidion",
-			"DDPAT"
+			"DDPAT",
+			"Ice bulldog",
+			"Piramidion"
 		]
 	},
 	"skinname-bluesky": "Блакитне небо",
@@ -21,9 +22,7 @@
 	"bluesky-admin": "Адмін",
 	"bluesky-page-edited": "Сторінку востаннє відредаговано {{int:ago|$1}}",
 	"bluesky-page-edited-user": "Сторінку востаннє відредаговано {{int:ago|$1}} $2",
-	"duration-months": "$1 {{PLURAL:$1|місяць|місяці|місяців}}",
 	"bluesky-toc-sections": "Розділи",
-	"bluesky-breadcrumb-pointer": "»",
 	"bluesky-home": "Головна",
 	"bluesky-breadcrumbs-nsspecial": "[[Special:SpecialPages|Спеціальні сторінки]]",
 	"bluesky-breadcrumbs-nsproject": "[{{fullurl:Special:PrefixIndex|namespace=4}} Сторінки проєкту]",
