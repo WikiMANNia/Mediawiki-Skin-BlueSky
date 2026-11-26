@@ -1,9 +1,13 @@
 <?php
 
+namespace MediaWiki\Skin\BlueSky;
+
+use MediaWiki\Language\Language;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Revision\RevisionLookup;
+use MediaWiki\Skin\SkinTemplate;
 use MediaWiki\User\TalkPageNotificationManager;
 use MediaWiki\Utils\UrlUtils;
 use Wikimedia\Rdbms\IConnectionProvider;
@@ -23,5 +27,4 @@ class SkinBlueSky extends SkinTemplate {
 	) {
 		parent::__construct( $options );
 	}
-
 }

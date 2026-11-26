@@ -1,6 +1,6 @@
 {
 	"name": "BlueSky",
-	"version": "1.7.0",
+	"version": "1.7.4",
 	"author": [
 		"wikiHow",
 		"Jack Phoenix",
@@ -14,9 +14,10 @@
 	"requires": {
 		"MediaWiki": ">=1.43.0"
 	},
+	"callback": "MediaWiki\\Skin\\BlueSky\\BlueSkyHooks::onRegistration",
 	"ValidSkinNames": {
 		"bluesky": {
-			"class": "SkinBlueSky",
+			"class": "MediaWiki\\Skin\\BlueSky\\SkinBlueSky",
 			"services": [
 				"ConnectionProvider",
 				"ContentLanguage",
@@ -40,13 +41,23 @@
 					"scripts": [
 						"skins.bluesky.js"
 					],
-					"template": "BlueSkyTemplate"
+					"template": "MediaWiki\\Skin\\BlueSky\\BlueSkyTemplate"
 				}
 			]
 		}
 	},
-	"ThemeModules": {
-		"bluesky": [ "blue", "red", "green", "white", "grey" ]
+	"attributes": {
+		"Theme": {
+			"Modules": {
+				"bluesky": [
+					"blue",
+					"red",
+					"green",
+					"white",
+					"grey"
+				]
+			}
+		}
 	},
 	"MessagesDirs": {
 		"SkinBlueSky": [
@@ -54,15 +65,10 @@
 		]
 	},
 	"config": {
-		"BlueSkyTOC": ""
-	},
-	"HookHandlers": {
-		"main": {
-			"class": "BlueSkyHooks"
+		"BlueSkyTOC": {
+			"type": "string",
+			"value": ""
 		}
-	},
-	"Hooks": {
-		"OutputPageParserOutput": "main"
 	},
 	"ResourceModules": {
 		"skins.bluesky": {
@@ -122,10 +128,16 @@
 		"localBasePath": "",
 		"remoteSkinPath": "BlueSky"
 	},
-	"AutoloadClasses": {
-		"SkinBlueSky": "includes/SkinBlueSky.php",
-		"BlueSkyTemplate": "includes/BlueSkyTemplate.php",
-		"BlueSkyHooks": "includes/BlueSkyHooks.php"
+	"AutoloadNamespaces": {
+		"MediaWiki\\Skin\\BlueSky\\": "includes/"
 	},
-	"manifest_version": 1
+	"HookHandlers": {
+		"main": {
+			"class": "MediaWiki\\Skin\\BlueSky\\BlueSkyHooks"
+		}
+	},
+	"Hooks": {
+		"OutputPageParserOutput": "main"
+	},
+	"manifest_version": 2
 }

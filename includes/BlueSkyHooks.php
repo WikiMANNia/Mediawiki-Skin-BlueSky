@@ -1,11 +1,19 @@
 <?php
 
+namespace MediaWiki\Skin\BlueSky;
+
+use MediaWiki\Hook\OutputPageParserOutputHook;
+#use MediaWiki\Output\Hook\OutputPageParserOutputHook;
+
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Parser\ParserOutput;
 
 class BlueSkyHooks implements
-	\MediaWiki\Output\Hook\OutputPageParserOutputHook
+	OutputPageParserOutputHook
 {
+	public static function onRegistration() {
+		Compat::init();
+	}
 
 	/**
 	 * Shamelessly stolen from brickimedia's refreshed skin

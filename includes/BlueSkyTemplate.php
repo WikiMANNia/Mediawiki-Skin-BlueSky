@@ -1,6 +1,9 @@
 <?php
 
+namespace MediaWiki\Skin\BlueSky;
+
 use MediaWiki\Html\Html;
+use MediaWiki\Language\Language;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\Linker\Linker;
 use MediaWiki\Linker\LinkRenderer;
@@ -9,6 +12,8 @@ use MediaWiki\Parser\Sanitizer;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Skin\Skin;
+use MediaWiki\Skin\BaseTemplate;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 use MediaWiki\User\TalkPageNotificationManager;
@@ -209,9 +214,7 @@ class BlueSkyTemplate extends BaseTemplate {
 		}
 
 		// Content
-		$html .= Html::rawElement(
-			'div',
-			[ 'class' => 'mw-body', 'role' => 'main', 'data-mw-ve-target-container' => true ],
+		$html .= Html::rawElement( 'div', [ 'class' => 'mw-body', 'role' => 'main' ],
 			Html::rawElement( 'div', [ 'class' => 'mw-body-content', 'id' => 'bodyContent' ],
 				$this->get( 'bodytext' ) .
 				$this->getClear() .
@@ -481,7 +484,6 @@ class BlueSkyTemplate extends BaseTemplate {
 		// This is really dumb, but there is no sane way to do this. So we'll just go through all of them and pick out the ones we know we want for any given block. Note that this completely screws over any extensions that add new ones.
 		foreach ( $pileOfTools as $navKey => $navBlock ) {
 			if ( in_array( $navKey, [
-				've-edit',
 				'edit',
 				'viewsource'
 			] ) ) {
@@ -537,9 +539,8 @@ class BlueSkyTemplate extends BaseTemplate {
 			$sortedPileOfTools[$currentSet][$navKey] = $navBlock;
 		}
 
-		// Use different edit msg in header menu if VE is disabled
-		if ( isset( $sortedPileOfTools['edit-menu']['edit'] )
-			&& !isset( $sortedPileOfTools['edit-menu']['ve-edit'] ) ) {
+		// Use different edit msg in header menu
+		if ( isset( $sortedPileOfTools['edit-menu']['edit'] ) ) {
 			$sortedPileOfTools['edit-menu']['edit']['text'] = $this->getMsg( 'bluesky-editthis' )->text();
 		}
 
