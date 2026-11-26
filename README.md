@@ -41,3 +41,7 @@ Version 1.7.4 - Nov 25, 2026
 - Migrated ´extension.json´ from manifest version 1 to manifest version 2.
 - Add namespace
 - Add file ´Compat.php´
+
+Version 1.7.5 - Nov 25, 2026
+- Add backward compatibility to REL1_39
+- Update ´i18n´

@@ -38,8 +38,39 @@ class BlueSkyTemplate extends BaseTemplate {
 	 */
 	protected $isMainPage;
 
+	/**
+	 * How many notifications does the user have?
+	 * @var int
+	 */
+	private $notifications_count = 0;
+
 	private Language $contentLanguage;
+	private LanguageNameUtils $languageNameUtils;
 	private LinkRenderer $linkRenderer;
+	private PermissionManager $permissionManager;
+	private RevisionLookup $revisionLookup;
+	private TalkPageNotificationManager $talkPageNotificationManager;
+	private string $validProtocols;
+	private bool $hideInterlanguageLinks;
+
+	public function __construct() {
+
+		$services = MediaWikiServices::getInstance();
+		$this->hideInterlanguageLinks = $services->getMainConfig()->get( "HideInterlanguageLinks" );
+		$this->contentLanguage = $services->getContentLanguage();
+		$this->languageNameUtils = $services->getLanguageNameUtils();
+		$this->linkRenderer = $services->getLinkRenderer();
+		$this->permissionManager = $services->getPermissionManager();
+		$this->revisionLookup = $services->getRevisionLookup();
+		$this->talkPageNotificationManager = $services->getTalkPageNotificationManager();
+		if ( method_exists( \MediaWiki\MediaWikiServices::class, 'getUrlUtils' ) ) {
+			// Works with mediawiki version >= 1.39
+			$urlUtils = MediaWikiServices::getInstance()->getUrlUtils();
+			$this->validProtocols = $urlUtils->validProtocols();
+		} else {
+			$this->validProtocols = wfUrlProtocols();
+		}
+	}
 
 	/**
 	 * Outputs the entire contents of the page
@@ -47,10 +78,6 @@ class BlueSkyTemplate extends BaseTemplate {
 	public function execute() {
 		/** @var $skin SkinBlueSky */
 		$skin = $this->getSkin();
-
-		$this->contentLanguage = MediaWikiServices::getInstance()->getContentLanguage();
-		$this->linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
-
 		$title = $skin->getTitle();
 		$request = $skin->getRequest();
 		$action = $request->getVal( 'action', 'view' );
@@ -851,10 +878,7 @@ class BlueSkyTemplate extends BaseTemplate {
 		$title = $skin->getTitle();
 		$user = $skin->getUser();
 
-		if ( !MediaWikiServices::getInstance()
-			->getPermissionManager()
-			->userCan( 'edit', $user, $title )
-		) {
+		if ( !$this->permissionManager->userCan( 'edit', $user, $title ) ) {
 			return '';
 		}
 
@@ -951,12 +975,12 @@ class BlueSkyTemplate extends BaseTemplate {
 			if ( class_exists( 'Notifications' ) ) {
 				$ret = Notifications::loadNotifications();
 				if ( is_array( $ret ) ) {
-					list( $html, $this->notifications_count ) = $ret;
+					[ $html, $this->notifications_count ] = $ret;
 				}
 			} else {
 				// the wikiHow notifications ext. isn't installed either,
 				// so we essentially reimplement its logic here
-				list( $notes, $count, $newTalk ) = $this->getNotifications();
+				[ $notes, $count, $newTalk ] = $this->getNotifications();
 				$html = $this->formatNotifications( $notes, $newTalk );
 				$this->notifications_count = $count;
 			}
@@ -986,8 +1010,7 @@ class BlueSkyTemplate extends BaseTemplate {
 		// Talk messages
 		$talkCount = 0;
 
-		$userHasNewMessages = MediaWikiServices::getInstance()
-			->getTalkPageNotificationManager()->userHasNewMessages( $user );
+		$userHasNewMessages = $this->talkPageNotificationManager->userHasNewMessages( $user );
 
 		if ( $userHasNewMessages ) {
 			$talkCount = $this->getCount( 'user_newtalk' );
@@ -1135,7 +1158,7 @@ class BlueSkyTemplate extends BaseTemplate {
 		$html = '';
 
 		if ( $title->exists() ) {
-			$revision = MediaWikiServices::getInstance()->getRevisionLookup()->getRevisionByTitle( $title );
+			$revision = $this->revisionLookup->getRevisionByTitle( $title );
 			if ( $revision instanceof RevisionRecord ) {
 				$timestamp = wfTimestamp( TS_UNIX, $revision->getTimestamp() );
 				// Normally we'd just call Language::formatTimePeriod or something at this
@@ -1193,7 +1216,7 @@ class BlueSkyTemplate extends BaseTemplate {
 		$skin = $this->getSkin();
 
 		$languages = [];
-		if ( !$this->config->get( MainConfigNames::HideInterlanguageLinks ) ) {
+		if ( !$this->hideInterlanguageLinks ) {
 			foreach ( $skin->getOutput()->getLanguageLinks() as $blob ) {
 				$tmp = explode( ':', $blob, 2 );
 				$class = 'interwiki-' . $tmp[0];
@@ -1202,7 +1225,7 @@ class BlueSkyTemplate extends BaseTemplate {
 				$iwTitle = Title::newFromText( $blob );
 				$inLanguage = $this->contentLanguage->getCode();
 				$interwiki = $iwTitle->getInterwiki();
-				$languageName = Language::fetchLanguageName( $interwiki, $inLanguage );
+				$languageName = $this->languageNameUtils->getLanguageName( $interwiki, $inLanguage );
 				if ( $languageName !== '' ) {
 					$language = $languageName;
 				} else {

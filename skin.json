@@ -1,6 +1,6 @@
 {
 	"name": "BlueSky",
-	"version": "1.7.4",
+	"version": "1.7.5",
 	"author": [
 		"wikiHow",
 		"Jack Phoenix",
@@ -63,7 +63,7 @@
 	"ResourceModules": {
 		"skins.bluesky": {
 			"targets": [ "desktop", "mobile" ],
-			"class": "MediaWiki\\Skin\\BlueSky\\ResourceLoaderSkinModule",
+			"class": "MediaWiki\\ResourceLoader\\SkinModule",
 			"features": {
 				"content-links": true,
 				"logo": true,
