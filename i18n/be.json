@@ -1,10 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Maksim L.",
 			"Mechanizatar",
 			"No Sleep till Krupki",
-			"Vlad5250",
-			"Maksim L."
+			"Vlad5250"
 		]
 	},
 	"bluesky-desc": "Тэма афармлення, якая першапачаткова грунтавалася на актуальнай версіі канца 2013 году тэмы афармлення wikiHow з новымі магчымасцямі, такімі як мабільная падтрымка, лепшае ўзаемадзеянне з вонкавымі пашырэннямі і тэмы.",
@@ -22,7 +22,6 @@
 	"bluesky-admin": "Адміністратар",
 	"bluesky-page-edited": "Старонка апошні раз рэдагавалася {{int:ago|$1}}",
 	"bluesky-page-edited-user": "Старонка апошні раз рэдагавалася {{int:ago|$1}} $2",
-	"duration-months": "$1 {{PLURAL:$1|месяц|месяцы|месяцаў}}",
 	"bluesky-toc-sections": "Раздзелы",
 	"bluesky-home": "Галоўная",
 	"bluesky-breadcrumbs-nsspecial": "[[Special:SpecialPages|Адмысловыя старонкі]]",

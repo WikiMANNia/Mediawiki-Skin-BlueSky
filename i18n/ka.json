@@ -1,8 +1,6 @@
 {
 	"@metadata": {
 		"authors": [
-			"Გიო ოქრო",
-			"Იო ოქრო",
 			"Mehman97"
 		]
 	},
@@ -11,6 +9,5 @@
 	"bluesky-viewsource": "ამ გვერდის წყაროს ნახვა",
 	"bluesky-navbar-edit": "რედაქტირება",
 	"bluesky-personaltools": "პროფილი",
-	"bluesky-messages": "შეტყობინებები",
-	"duration-months": "$1 {{PLURAL:$1|თვე|თვე}}"
+	"bluesky-messages": "შეტყობინებები"
 }

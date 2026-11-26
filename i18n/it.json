@@ -18,7 +18,6 @@
 	"bluesky-admin": "Amministratore",
 	"bluesky-page-edited": "Ultima modifica della pagina {{int:ago|$1}}",
 	"bluesky-page-edited-user": "Ultima modifica della pagina {{int:ago|$1}} fatta da $2",
-	"duration-months": "$1 {{PLURAL:$1|mese|mesi}}",
 	"bluesky-toc-sections": "Sezioni",
 	"bluesky-home": "Pagina principale",
 	"bluesky-breadcrumbs-nsspecial": "[[Special:SpecialPages|Pagine speciali]]",

@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Умар",
-			"Исмаил Садуев"
+			"Исмаил Садуев",
+			"Умар"
 		]
 	},
 	"bluesky-editthis": "ХӀара агӀо нисйан",
@@ -19,7 +19,6 @@
 	"bluesky-admin": "Админ",
 	"bluesky-page-edited": "АгӀо тӀаьххьара нисйина {{int:ago|$1}}",
 	"bluesky-page-edited-user": "АгӀо тӀаьххьара нисйина {{int:ago|$1}} а, $2 а",
-	"duration-months": "$1 {{PLURAL:$1|бутт}} хьалха",
 	"bluesky-toc-sections": "Дакъош",
 	"bluesky-home": "Коьрта",
 	"bluesky-breadcrumbs-nsspecial": "[[Special:SpecialPages|къаьстина агӀонаш]]",
