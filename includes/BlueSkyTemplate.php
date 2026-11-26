@@ -1,6 +1,9 @@
 <?php
 
+namespace MediaWiki\Skin\BlueSky;
+
 use MediaWiki\Html\Html;
+use MediaWiki\Language\Language;
 use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\Linker\Linker;
 use MediaWiki\Linker\LinkRenderer;
@@ -9,6 +12,8 @@ use MediaWiki\Parser\Sanitizer;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Skin\Skin;
+use MediaWiki\Skin\BaseTemplate;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
 use MediaWiki\User\TalkPageNotificationManager;
