@@ -2,8 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Aefgh39622",
-			"Geonuch",
-			"Ekminarin"
+			"Ekminarin",
+			"Geonuch"
 		]
 	},
 	"bluesky-desc": "สกินดั้งเดิมจากรุ่นปัจจุบันของช่วงปลายปี 2013 ของสกินวิกิฮาวด้วยคุณลักษณะใหม่ ๆ เช่น การสนับสนุนอุปกรณ์เคลื่อนที่ การทำงานร่วมกันของส่วนขยายภายนอกที่ดีขึ้น และธีม",
@@ -21,7 +21,6 @@
 	"bluesky-admin": "ผู้ดูแล",
 	"bluesky-page-edited": "หน้าการแก้ไขล่าสุด {{int:ago|$1}}",
 	"bluesky-page-edited-user": "หน้าการแก้ไขล่าสุด {{int:ago|$1}} โดย $2",
-	"duration-months": "$1 {{PLURAL:$1|เดือน|เดือน}}",
 	"bluesky-toc-sections": "ส่วนย่อย",
 	"bluesky-home": "หน้าหลัก",
 	"bluesky-breadcrumbs-nsspecial": "[[Special:SpecialPages|หน้าพิเศษ]]",
