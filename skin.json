@@ -1,6 +1,6 @@
 {
 	"name": "BlueSky",
-	"version": "1.7.4",
+	"version": "1.7.5",
 	"author": [
 		"wikiHow",
 		"Jack Phoenix",
@@ -12,7 +12,7 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "skin",
 	"requires": {
-		"MediaWiki": ">=1.43.0"
+		"MediaWiki": ">=1.39.0"
 	},
 	"callback": "MediaWiki\\Skin\\BlueSky\\BlueSkyHooks::onRegistration",
 	"ValidSkinNames": {
