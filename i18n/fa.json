@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Reza1615",
-			"Beginneruser"
+			"Beginneruser",
+			"Reza1615"
 		]
 	},
 	"bluesky-desc": "پوسته‌ای بر پایهٔ پوستهٔ ۲۰۱۳ ویکی‌هاو",
@@ -20,7 +20,6 @@
 	"bluesky-admin": "ادمین",
 	"bluesky-page-edited": "آخرین ویرایش صفحه {{int:پیش|$1}}",
 	"bluesky-page-edited-user": "آخرین ویرایش صفحه {{int:پیش|$1}} توسط $2",
-	"duration-months": "$1 {{PLURAL:$1|ماه|ماه}}",
 	"bluesky-toc-sections": "بخش‌ها",
 	"bluesky-home": "خانه",
 	"bluesky-breadcrumbs-nsspecial": "[[Special:SpecialPages|صفحه‌های ویژه]]",

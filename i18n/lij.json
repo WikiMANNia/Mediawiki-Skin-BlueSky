@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"S4b1nuz E.656",
-			"N. Longo"
+			"N. Longo",
+			"S4b1nuz E.656"
 		]
 	},
 	"bluesky-desc": "Quésta skin a l'êa iniçialménte bazâ in sce l'atoâle versción, da fìn do 2013, da skin de wikiHow, con nêuve fonçionalitæ cómme o supòrto mòbile, 'na mêgio interoperabilitæ de estenscioìn estèrne e di têmi.",
@@ -20,7 +20,6 @@
 	"bluesky-admin": "Aministratô",
 	"bluesky-page-edited": "Pàgina modificâ l'ùrtima vòtta {{int:ago|$1}}",
 	"bluesky-page-edited-user": "Pàgina modificâ l'ùrtima vòtta {{int:ago|$1}} da $2",
-	"duration-months": "$1 {{PLURAL:$1|méize|méixi}}",
 	"bluesky-toc-sections": "Seçioìn",
 	"bluesky-home": "Pàgina prinçipâ",
 	"bluesky-breadcrumbs-nsspecial": "[[Special:SpecialPages|Pàgine speciâli]]",

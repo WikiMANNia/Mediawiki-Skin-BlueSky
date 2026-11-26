@@ -21,10 +21,10 @@
 	"bluesky-admin": "Admin",
 	"bluesky-page-edited": "Page last edited {{int:ago|$1}}",
 	"bluesky-page-edited-user": "Page last edited {{int:ago|$1}} by $2",
-	"duration-months": "$1 {{PLURAL:$1|month|months}}",
 	"bluesky-toc-sections": "Sections",
-	"bluesky-breadcrumb-pointer": "»",
 	"bluesky-home": "Home",
+	"bluesky-menu": "Menu",
+	"bluesky-breadcrumb-pointer": "»",
 	"bluesky-breadcrumbs-nsspecial": "[[Special:SpecialPages|Special pages]]",
 	"bluesky-breadcrumbs-nsmain": "[[Special:AllPages|{{MediaWiki:Nstab-main}}s]]",
 	"bluesky-breadcrumbs-nsproject": "[{{fullurl:Special:PrefixIndex|namespace=4}} Project pages]",
@@ -35,6 +35,5 @@
 	"bluesky-breadcrumbs-nsdefault": "[{{fullurl:Special:PrefixIndex|namespace={{NAMESPACENUMBER}}}} {{NAMESPACE}} pages]",
 	"bluesky-article-info": "Article info",
 	"bluesky-page-info": "Page info",
-	"bluesky-footer-tools": "Extra page tools",
-	"bluesky-menu": "Menu"
+	"bluesky-footer-tools": "Extra page tools"
 }

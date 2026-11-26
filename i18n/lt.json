@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eitvys200"
+			"Eitvys200",
+			"Nokeoo"
 		]
 	},
 	"bluesky-editthis": "Redaguoti šį puslapį",
@@ -17,7 +18,6 @@
 	"bluesky-admin": "Administratorius",
 	"bluesky-page-edited": "Puslapis paskutinį kartą redaguotas {{int:ago|$1}}",
 	"bluesky-page-edited-user": "Puslapis paskutinį kartą redaguotas {{int:ago|$1}}, $2",
-	"duration-months": "$1 {{PLURAL:$1|mėnesį|mėnesius}}",
 	"bluesky-toc-sections": "Skyriai",
 	"bluesky-home": "Pradžia",
 	"bluesky-breadcrumbs-nsspecial": "[[Special:SpecialPages|Specialūs puslapiai]]",
